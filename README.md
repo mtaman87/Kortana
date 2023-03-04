@@ -4,6 +4,7 @@ This repository contains a simple interface for an AI chatbot, built with Vite a
 ## Demo
 We've deployed the chatbot to a live server so you can try it out for yourself! Check it out here.
 > https://kortana.vercel.app/
+
 The demo site allows you to chat with the bot in real-time, just like you would in a messaging app. Type in a message and hit enter to see the bot's response. You can also scroll up and down to see your chat history.
 
 Please note that the demo site is hosted on a shared server and may experience occasional downtime or slow response times due to high traffic. If you encounter any issues, please try again later or contact us for assistance.
