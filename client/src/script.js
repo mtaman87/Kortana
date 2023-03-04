@@ -6,11 +6,12 @@ const chatContainer = document.querySelector("#chat_container");
 
 let loadInterval;
 
+// Define a function to create loading effect
 function loader(element) {
   element.textContent = "";
 
+  // Create an interval to update the loading indicator text content
   loadInterval = setInterval(() => {
-    // Update the text content of the loading indicator
     element.textContent += ".";
 
     // If the loading indicator has reached three dots, reset it
@@ -20,9 +21,11 @@ function loader(element) {
   }, 300);
 }
 
+// Define a function to type text on the chat window
 function typeText(element, text) {
   let index = 0;
 
+  // Create an interval to type each character one by one
   let interval = setInterval(() => {
     if (index < text.length) {
       element.innerHTML += text.charAt(index);
@@ -44,6 +47,7 @@ function generateUniqueId() {
   return `id-${timestamp}-${hexadecimalString}`;
 }
 
+// Define a function to create chat stripe
 function chatStripe(isAi, value, uniqueId) {
   return `
         <div class="wrapper ${isAi && "ai"}">
@@ -60,30 +64,33 @@ function chatStripe(isAi, value, uniqueId) {
     `;
 }
 
+// Define a function to handle form submission
 const handleSubmit = async (e) => {
   e.preventDefault();
 
+  // Get the form data
   const data = new FormData(form);
 
-  // user's chatstripe
+  // Add user's chat stripe to the chat window
   chatContainer.innerHTML += chatStripe(false, data.get("prompt"));
 
-  // to clear the textarea input
+  // Reset the form
   form.reset();
 
-  // bot's chatstripe
+  // Add bot's chat stripe to the chat window
   const uniqueId = generateUniqueId();
   chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
 
-  // to focus scroll to the bottom
+  // Scroll to the bottom of the chat window
   chatContainer.scrollTop = chatContainer.scrollHeight;
 
-  // specific message div
+  // Get the specific message div
   const messageDiv = document.getElementById(uniqueId);
 
-  // messageDiv.innerHTML = "..."
+  // Start loading effect
   loader(messageDiv);
 
+  // Send the user's prompt to the server and get the bot's response
   const response = await fetch("https://kortana.onrender.com", {
     method: "POST",
     headers: {
@@ -94,15 +101,18 @@ const handleSubmit = async (e) => {
     }),
   });
 
+  // Stop the loading effect
   clearInterval(loadInterval);
   messageDiv.innerHTML = " ";
 
+  // If the response is ok, add the bot's response to the chat window
   if (response.ok) {
     const data = await response.json();
     const parsedData = data.bot.trim(); // trims any trailing spaces/'\n'
 
     typeText(messageDiv, parsedData);
   } else {
+    // If the response is not ok, show an error message
     const err = await response.text();
 
     messageDiv.innerHTML = "Something went wrong";
