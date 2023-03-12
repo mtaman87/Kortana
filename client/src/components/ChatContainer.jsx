@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import bot from "../../assets/k-logo-white.png";
-import user from "../../assets/user.svg";
+import bot from "../../public/assets/k-logo-white.png";
+import user from "../../public/assets/user.svg";
 import Typing from "react-typing-animation";
 
 function ChatContainer() {
