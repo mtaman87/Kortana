@@ -14,7 +14,7 @@ const App = () => {
   };
 
   return (
-    <div className="h-full flex flex-col justify-between">
+    <div className="h-[100vh] flex flex-col justify-between">
       <Particles
         id="tsparticles"
         init={particlesInit}
