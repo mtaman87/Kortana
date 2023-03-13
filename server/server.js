@@ -26,7 +26,7 @@ app.use(express.json());
 // Define GET endpoint to return a simple message
 app.get("/", async (req, res) => {
   res.status(200).send({
-    message: "Hello from CodeX!",
+    message: "Hello from Kortana!",
   });
 });
 
