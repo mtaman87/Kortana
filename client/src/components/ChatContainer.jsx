@@ -25,21 +25,26 @@ function ChatContainer() {
 
     const messages = chatLogNew.map((msg) => msg.value).join("\n");
 
-    // Send the user's prompt to the server and get the bot's response
-    const response = await fetch("https://kortana.onrender.com", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        prompt: messages,
-      }),
-    });
-    const data = await response.json();
-    console.log(data.bot);
-    setChatLog([...chatLogNew, { isAi: true, value: data.bot }]);
-  };
+    try {
+      // Send the user's prompt to the server and get the bot's response
+      const response = await fetch("https://kortana-server.herokuapp.com/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          prompt: messages,
+        }),
+      });
 
+      const data = await response.json();
+      console.log(data);
+      const value = data.data;
+      setChatLog([...chatLogNew, { isAi: true, value: value }]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const chatStripe = (isAi, value, index) => {
     return (
@@ -58,9 +63,8 @@ function ChatContainer() {
               <Typing
                 className="text-lg text-white"
                 cursorClassName="text-teal-400"
-                speed={1}
+                speed={.5}
                 hideCursorOnFinish={true}
-                onTypingDone={() => setIsTypingDone(true)}
               >
                 {[value]}
               </Typing>
