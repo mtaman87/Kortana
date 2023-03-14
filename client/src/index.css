@@ -35,6 +35,15 @@
   justify-content: center;
 }
 
+.chatBoxMobile {
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px);
+  width: 100%;
+  justify-content: space-between;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -111,4 +120,36 @@ body {
 /* hides scrollbar */
 .message::-webkit-scrollbar {
   display: none;
+}
+
+/* Prompt box mobile responsive */
+.chatBox {
+  display: flex;
+  flex-direction: column; /* set the flex direction to column */
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 80px);
+  width: 100%;
+  justify-content: space-between;
+}
+
+.chatBox > div:first-child {
+  order: 1; /* set the order of the first div to 1 */
+}
+
+.chatBox > div:last-child {
+  order: 2; /* set the order of the second div to 2 */
+}
+
+@media (max-width: 740px) {
+  .chatBox > div:first-child {
+    order: 2; /* reverse the order of the first div */
+  }
+
+  .chatBox > div:last-child {
+    order: 1; /* reverse the order of the second div */
+  }
+  .chatBox {
+   justify-content: start;
+  }
 }

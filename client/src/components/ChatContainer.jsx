@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import bot from "../../public/assets/k-logo-white.png";
 import user from "../../public/assets/user.svg";
 import Typing from "react-typing-animation";
+import "../index.css";
 
 function ChatContainer() {
   const [input, setInput] = useState("");
@@ -63,7 +64,7 @@ function ChatContainer() {
               <Typing
                 className="text-lg text-white"
                 cursorClassName="text-teal-400"
-                speed={.5}
+                speed={0.05}
                 hideCursorOnFinish={true}
               >
                 {[value]}
@@ -77,15 +78,9 @@ function ChatContainer() {
     );
   };
 
-  return (
-    <div
-      id="chat_container"
-      className="flex-1 flex-col overflow-y-scroll scroll-smooth z-0 "
-    >
-      <div className="flex flex-col h-[100%] justify-between">
-        <div className="flex flex-col overflow-y-scroll scro p-4">
-          {chatLog.map((msg, index) => chatStripe(msg.isAi, msg.value, index))}
-        </div>
+  const promptBox = () => {
+    return (
+      <div className="w-full">
         <form className="bg-slate-800 flex p-4 w-full justify-center ">
           <input
             name="prompt"
@@ -99,6 +94,24 @@ function ChatContainer() {
             <img className="w-[30px]" src="assets/send.svg" alt="send" />
           </button>
         </form>
+      </div>
+    );
+  };
+
+  return (
+    <div
+      id="chat_container"
+      className="flex-1 flex-col overflow-y-scroll scroll-smooth z-0 "
+    >
+      <div className="chatBox">
+        <div className="flex flex-col overflow-y-scroll w-full p-4">
+          <div>
+            {chatLog.map((msg, index) =>
+              chatStripe(msg.isAi, msg.value, index)
+            )}
+          </div>
+        </div>
+        {promptBox()}
       </div>
     </div>
   );
